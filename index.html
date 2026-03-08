@@ -1,682 +1,94 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Raymond Musakanda | Tennis Coach • Author • Empire Builder</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://unpkg.com/lucide@latest"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif'],
-                    },
-                    colors: {
-                        gold: '#D4AF37',
-                        'gold-light': '#F4E4BC',
-                        'deep-green': '#1B4D3E',
-                        'rich-black': '#0a0a0a',
-                        'paper': '#F9F7F2',
-                    },
-                    animation: {
-                        'shimmer': 'shimmer 2s linear infinite',
-                        'float': 'float 6s ease-in-out infinite',
-                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                    },
-                    keyframes: {
-                        shimmer: {
-                            '0%': { backgroundPosition: '-1000px 0' },
-                            '100%': { backgroundPosition: '1000px 0' },
-                        },
-                        float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-20px)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
     <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            background-color: #0a0a0a;
+            background: #0a0a0a;
             color: #F9F7F2;
-            overflow-x: hidden;
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
         }
-        
-        .text-gold {
-            color: #D4AF37;
+        .gold { color: #D4AF37; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px;
+            background: radial-gradient(circle at center, rgba(212,175,55,0.1) 0%, transparent 70%);
         }
-        
-        .bg-gold {
-            background-color: #D4AF37;
+        h1 { font-size: clamp(2.5rem, 8vw, 6rem); line-height: 0.9; margin-bottom: 20px; }
+        .subtitle { font-size: 1.2rem; color: #888; margin-bottom: 40px; }
+        .btn {
+            display: inline-block;
+            padding: 15px 40px;
+            margin: 10px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
         }
-        
-        .border-gold {
-            border-color: #D4AF37;
+        .btn-primary { background: #D4AF37; color: #000; }
+        .btn-outline { border: 2px solid #D4AF37; color: #D4AF37; background: transparent; }
+        .section { padding: 80px 20px; }
+        .section-title { font-size: 2.5rem; text-align: center; margin-bottom: 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+        .card {
+            background: linear-gradient(145deg, rgba(212,175,55,0.1) 0%, rgba(27,77,62,0.1) 100%);
+            border: 1px solid rgba(212,175,55,0.2);
+            padding: 40px;
+            border-radius: 15px;
         }
-        
-        .gold-gradient {
-            background: linear-gradient(135deg, #D4AF37 0%, #F4E4BC 50%, #D4AF37 100%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            animation: shimmer 3s linear infinite;
-        }
-        
-        .luxury-card {
-            background: linear-gradient(145deg, rgba(212, 175, 55, 0.1) 0%, rgba(27, 77, 62, 0.1) 100%);
-            border: 1px solid rgba(212, 175, 55, 0.2);
-            backdrop-filter: blur(10px);
-        }
-        
-        .tennis-court-line {
-            background: linear-gradient(90deg, transparent 0%, #D4AF37 50%, transparent 100%);
-            height: 1px;
-            opacity: 0.3;
-        }
-        
-        .wealth-counter {
-            font-variant-numeric: tabular-nums;
-        }
-        
-        .book-spine {
-            transform: perspective(1000px) rotateY(-15deg);
-            transition: transform 0.5s ease;
-            box-shadow: -10px 10px 30px rgba(0,0,0,0.5);
-        }
-        
-        .book-spine:hover {
-            transform: perspective(1000px) rotateY(0deg) scale(1.05);
-        }
-        
-        .testimonial-card {
-            background: rgba(255, 255, 255, 0.03);
-            border-left: 3px solid #D4AF37;
-        }
-        
-        .reveal-up {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .reveal-up.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        
-        .court-pattern {
-            background-image: 
-                linear-gradient(90deg, rgba(212, 175, 55, 0.05) 1px, transparent 1px),
-                linear-gradient(rgba(212, 175, 55, 0.05) 1px, transparent 1px);
-            background-size: 50px 50px;
-        }
-        
-        .cta-glow {
-            box-shadow: 0 0 40px rgba(212, 175, 55, 0.3);
-        }
-        
-        .stat-number {
-            background: linear-gradient(180deg, #D4AF37 0%, #F4E4BC 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
+        .card h3 { color: #D4AF37; margin-bottom: 15px; font-size: 1.5rem; }
+        .stats { display: flex; justify-content: center; gap: 40px; margin-top: 40px; flex-wrap: wrap; }
+        .stat { text-align: center; }
+        .stat-number { font-size: 2.5rem; font-weight: bold; color: #D4AF37; }
+        .contact { background: #111; text-align: center; }
+        .email { font-size: 1.3rem; color: #D4AF37; margin: 20px 0; }
+        footer { text-align: center; padding: 40px; border-top: 1px solid #222; color: #666; }
     </style>
 </head>
-<body class="antialiased selection:bg-gold selection:text-black">
-
-    <!-- Navigation -->
-    <nav class="fixed top-0 w-full z-50 px-6 py-6 bg-rich-black/80 backdrop-blur-md border-b border-white/5">
-        <div class="max-w-7xl mx-auto flex justify-between items-center">
-            <a href="#" class="font-serif text-2xl font-bold tracking-wider text-gold">
-                RM
-            </a>
-            
-            <div class="hidden md:flex items-center gap-8">
-                <a href="#empire" class="text-sm font-medium hover:text-gold transition-colors">The Empire</a>
-                <a href="#books" class="text-sm font-medium hover:text-gold transition-colors">Books</a>
-                <a href="#coaching" class="text-sm font-medium hover:text-gold transition-colors">Coaching</a>
-                <a href="#mindset" class="text-sm font-medium hover:text-gold transition-colors">Mindset</a>
-                <a href="#contact" class="px-6 py-2 bg-gold text-black rounded-full text-sm font-bold hover:bg-gold-light transition-all">
-                    Work With Me
-                </a>
-            </div>
-
-            <button id="menuBtn" class="md:hidden text-gold">
-                <i data-lucide="menu" class="w-6 h-6"></i>
-            </button>
+<body>
+    <section class="hero">
+        <p class="gold" style="margin-bottom: 20px; letter-spacing: 3px; font-size: 0.9rem;">HARARE, ZIMBABWE • GLOBAL IMPACT</p>
+        <h1>BUILDING AN<br><span class="gold">EMPIRE</span><br>ONE SERVE<br>AT A TIME</h1>
+        <p class="subtitle">Tennis Coach • Author • Future Billionaire</p>
+        <div>
+            <a href="#coaching" class="btn btn-primary">Book a Session</a>
+            <a href="#books" class="btn btn-outline">Read My Books</a>
         </div>
-    </nav>
-
-    <!-- Mobile Menu -->
-    <div id="mobileMenu" class="fixed inset-0 bg-rich-black z-40 flex flex-col items-center justify-center gap-8 opacity-0 pointer-events-none transition-opacity duration-300">
-        <a href="#empire" class="text-2xl font-serif text-gold">The Empire</a>
-        <a href="#books" class="text-2xl font-serif text-gold">Books</a>
-        <a href="#coaching" class="text-2xl font-serif text-gold">Coaching</a>
-        <a href="#mindset" class="text-2xl font-serif text-gold">Mindset</a>
-        <a href="#contact" class="px-8 py-3 bg-gold text-black rounded-full font-bold">Work With Me</a>
-    </div>
-
-    <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center px-6 pt-20 overflow-hidden court-pattern">
-        <!-- Background Elements -->
-        <div class="absolute inset-0 z-0">
-            <div class="absolute top-1/4 right-1/4 w-96 h-96 bg-gold/10 rounded-full blur-[128px] animate-float"></div>
-            <div class="absolute bottom-1/4 left-1/4 w-96 h-96 bg-deep-green/20 rounded-full blur-[128px] animate-float" style="animation-delay: -3s;"></div>
-        </div>
-
-        <div class="relative z-10 max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div class="text-center lg:text-left reveal-up">
-                <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold/30 bg-gold/5 mb-6">
-                    <span class="w-2 h-2 bg-gold rounded-full animate-pulse"></span>
-                    <span class="text-xs font-medium tracking-widest uppercase text-gold">Harare, Zimbabwe • Global Impact</span>
-                </div>
-                
-                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl font-bold leading-[0.9] mb-6">
-                    BUILDING AN<br>
-                    <span class="gold-gradient">EMPIRE</span><br>
-                    ONE SERVE<br>
-                    AT A TIME
-                </h1>
-                
-                <p class="text-lg md:text-xl text-gray-400 mb-8 max-w-lg mx-auto lg:mx-0 leading-relaxed">
-                    Tennis Coach • Author • Future Billionaire<br>
-                    Teaching champions on the court and in life. Writing the playbook for wealth and greatness.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                    <a href="#coaching" class="group px-8 py-4 bg-gold text-black rounded-full font-bold flex items-center justify-center gap-2 hover:bg-gold-light transition-all cta-glow">
-                        Start Your Journey
-                        <i data-lucide="arrow-right" class="w-5 h-5 group-hover:translate-x-1 transition-transform"></i>
-                    </a>
-                    <a href="#books" class="px-8 py-4 border border-gold/50 rounded-full font-bold hover:bg-gold/10 transition-all">
-                        Read My Books
-                    </a>
-                </div>
-
-                <!-- Social Proof -->
-                <div class="mt-12 flex items-center justify-center lg:justify-start gap-8 text-sm text-gray-500">
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="users" class="w-4 h-4 text-gold"></i>
-                        <span>500+ Students</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="book-open" class="w-4 h-4 text-gold"></i>
-                        <span>3 Books</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i data-lucide="trophy" class="w-4 h-4 text-gold"></i>
-                        <span>Champion Maker</span>
-                    </div>
-                </div>
-            </div>
-
-            <div class="relative reveal-up" style="transition-delay: 0.2s;">
-                <div class="relative aspect-[3/4] max-w-md mx-auto">
-                    <div class="absolute inset-0 bg-gradient-to-b from-gold/20 to-transparent rounded-2xl transform rotate-3"></div>
-                    <img src="https://images.unsplash.com/photo-1599474924187-334a4ae5bd3c?w=600&q=80" alt="Raymond Musakanda" class="relative w-full h-full object-cover rounded-2xl border border-gold/20 shadow-2xl">
-                    
-                    <!-- Floating Badge -->
-                    <div class="absolute -bottom-6 -right-6 bg-rich-black border border-gold/30 p-4 rounded-xl shadow-xl">
-                        <p class="text-xs text-gray-400 uppercase tracking-wider">Net Worth Goal</p>
-                        <p class="text-2xl font-bold text-gold font-serif">$1B+</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Scroll Indicator -->
-        <div class="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce">
-            <i data-lucide="chevron-down" class="w-6 h-6 text-gold/50"></i>
+        <div class="stats">
+            <div class="stat"><div class="stat-number">500+</div><div style="color: #666; font-size: 0.9rem;">Students Coached</div></div>
+            <div class="stat"><div class="stat-number">3</div><div style="color: #666; font-size: 0.9rem;">Books Published</div></div>
+            <div class="stat"><div class="stat-number">15+</div><div style="color: #666; font-size: 0.9rem;">Years Experience</div></div>
         </div>
     </section>
 
-    <!-- Wealth Vision Section -->
-    <section class="py-24 px-6 bg-rich-black border-y border-gold/10">
-        <div class="max-w-7xl mx-auto text-center reveal-up">
-            <h2 class="font-serif text-3xl md:text-5xl font-bold mb-6">The Path to <span class="text-gold">Billions</span></h2>
-            <p class="text-gray-400 max-w-2xl mx-auto mb-12 text-lg">
-                From the tennis courts of Zimbabwe to global empire. Every book sold, every student coached, every deal made—building generational wealth.
-            </p>
-            
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-4xl mx-auto">
-                <div class="p-6 luxury-card rounded-xl">
-                    <p class="text-3xl font-bold stat-number font-serif mb-2">$0</p>
-                    <p class="text-xs text-gray-500 uppercase tracking-wider">Starting Point</p>
-                </div>
-                <div class="p-6 luxury-card rounded-xl">
-                    <p class="text-3xl font-bold stat-number font-serif mb-2">$1M</p>
-                    <p class="text-xs text-gray-500 uppercase tracking-wider">First Million</p>
-                </div>
-                <div class="p-6 luxury-card rounded-xl">
-                    <p class="text-3xl font-bold stat-number font-serif mb-2">$100M</p>
-                    <p class="text-xs text-gray-500 uppercase tracking-wider">Next Target</p>
-                </div>
-                <div class="p-6 luxury-card rounded-xl border-gold/50">
-                    <p class="text-3xl font-bold stat-number font-serif mb-2">$1B</p>
-                    <p class="text-xs text-gold uppercase tracking-wider">The Goal</p>
-                </div>
-            </div>
+    <section class="section container" id="books">
+        <h2 class="section-title">Words That <span class="gold">Build Wealth</span></h2>
+        <div class="grid">
+            <div class="card"><h3>The Champion's Serve</h3><p>Master the technical and mental aspects of the perfect serve.</p></div>
+            <div class="card"><h3>Court to Empire</h3><p>Turn your passion into a profitable empire.</p></div>
+            <div class="card"><h3>The Winner's Mind</h3><p>Mental toughness strategies for business and life.</p></div>
         </div>
     </section>
 
-    <!-- Books Section -->
-    <section id="books" class="py-32 px-6 relative">
-        <div class="max-w-7xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 reveal-up">
-                <div>
-                    <p class="text-gold font-medium mb-2 tracking-widest uppercase">The Library</p>
-                    <h2 class="font-serif text-4xl md:text-6xl font-bold">Words That <span class="text-gold">Build Wealth</span></h2>
-                </div>
-                <p class="text-gray-400 max-w-md mt-4 md:mt-0">
-                    Books on tennis mastery, winning mindset, and the psychology of success. Tools for your journey to the top.
-                </p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <!-- Book 1 -->
-                <div class="group reveal-up">
-                    <div class="relative aspect-[2/3] mb-6 perspective-1000">
-                        <div class="book-spine w-full h-full bg-gradient-to-br from-gray-900 to-black rounded-r-lg border-l-4 border-gold flex flex-col justify-between p-6 relative overflow-hidden">
-                            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                            <div>
-                                <p class="text-gold text-xs tracking-widest uppercase mb-2">Raymond Musakanda</p>
-                                <h3 class="font-serif text-2xl font-bold text-white leading-tight">The Champion's Serve</h3>
-                            </div>
-                            <div>
-                                <p class="text-gray-500 text-sm">Tennis Mastery</p>
-                                <div class="flex gap-1 mt-2">
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="font-serif text-xl font-bold mb-2">The Champion's Serve</h3>
-                    <p class="text-gray-400 text-sm mb-4">Master the technical and mental aspects of the perfect serve. Used by aspiring pros across Africa.</p>
-                    <button class="text-gold font-medium flex items-center gap-2 hover:gap-3 transition-all">
-                        Get the Book <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-
-                <!-- Book 2 -->
-                <div class="group reveal-up" style="transition-delay: 0.1s;">
-                    <div class="relative aspect-[2/3] mb-6 perspective-1000">
-                        <div class="book-spine w-full h-full bg-gradient-to-br from-deep-green to-black rounded-r-lg border-l-4 border-gold flex flex-col justify-between p-6 relative overflow-hidden">
-                            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                            <div>
-                                <p class="text-gold text-xs tracking-widest uppercase mb-2">Raymond Musakanda</p>
-                                <h3 class="font-serif text-2xl font-bold text-white leading-tight">Court to Empire</h3>
-                            </div>
-                            <div>
-                                <p class="text-gray-500 text-sm">Business & Wealth</p>
-                                <div class="flex gap-1 mt-2">
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="font-serif text-xl font-bold mb-2">Court to Empire</h3>
-                    <p class="text-gray-400 text-sm mb-4">How to turn your passion into a profitable empire. The blueprint for going from coach to CEO.</p>
-                    <button class="text-gold font-medium flex items-center gap-2 hover:gap-3 transition-all">
-                        Get the Book <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-
-                <!-- Book 3 -->
-                <div class="group reveal-up" style="transition-delay: 0.2s;">
-                    <div class="relative aspect-[2/3] mb-6 perspective-1000">
-                        <div class="book-spine w-full h-full bg-gradient-to-br from-gray-800 to-black rounded-r-lg border-l-4 border-gold flex flex-col justify-between p-6 relative overflow-hidden">
-                            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
-                            <div>
-                                <p class="text-gold text-xs tracking-widest uppercase mb-2">Raymond Musakanda</p>
-                                <h3 class="font-serif text-2xl font-bold text-white leading-tight">The Winner's Mind</h3>
-                            </div>
-                            <div>
-                                <p class="text-gray-500 text-sm">Psychology</p>
-                                <div class="flex gap-1 mt-2">
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                    <i data-lucide="star" class="w-4 h-4 text-gold fill-gold"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <h3 class="font-serif text-xl font-bold mb-2">The Winner's Mind</h3>
-                    <p class="text-gray-400 text-sm mb-4">Mental toughness strategies from tennis applied to business and life. Think like a champion.</p>
-                    <button class="text-gold font-medium flex items-center gap-2 hover:gap-3 transition-all">
-                        Get the Book <i data-lucide="arrow-right" class="w-4 h-4"></i>
-                    </button>
-                </div>
-            </div>
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">Work With <span class="gold">Me</span></h2>
+            <p style="color: #888; margin-bottom: 30px;">Ready to build your legacy?</p>
+            <p class="email">raymond@empire.com</p>
+            <p style="color: #666;">Based in Harare, Zimbabwe</p>
         </div>
     </section>
 
-    <!-- Coaching Section -->
-    <section id="coaching" class="py-32 px-6 bg-gradient-to-b from-rich-black to-deep-green/20">
-        <div class="max-w-7xl mx-auto">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                <div class="reveal-up">
-                    <p class="text-gold font-medium mb-4 tracking-widest uppercase">Elite Coaching</p>
-                    <h2 class="font-serif text-4xl md:text-5xl font-bold mb-6">
-                        Train With a <span class="text-gold">Champion Maker</span>
-                    </h2>
-                    <p class="text-gray-300 text-lg mb-8 leading-relaxed">
-                        Based in Harare, coaching the next generation of tennis stars. From beginners to competitive players—everyone gets the champion treatment.
-                    </p>
-                    
-                    <div class="space-y-6 mb-8">
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="target" class="w-6 h-6 text-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-1">Technical Mastery</h4>
-                                <p class="text-gray-400 text-sm">Perfect your serve, forehand, and footwork with proven methods.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="brain" class="w-6 h-6 text-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-1">Mental Game</h4>
-                                <p class="text-gray-400 text-sm">Develop the mindset of winners. Pressure is privilege.</p>
-                            </div>
-                        </div>
-                        
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-full bg-gold/10 flex items-center justify-center flex-shrink-0">
-                                <i data-lucide="trending-up" class="w-6 h-6 text-gold"></i>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-lg mb-1">Career Strategy</h4>
-                                <p class="text-gray-400 text-sm">Navigate the path from local courts to international tournaments.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="flex gap-4">
-                        <button class="px-8 py-4 bg-gold text-black rounded-full font-bold hover:bg-gold-light transition-all cta-glow">
-                            Book a Session
-                        </button>
-                        <button class="px-8 py-4 border border-gold/50 rounded-full font-bold hover:bg-gold/10 transition-all">
-                            View Programs
-                        </button>
-                    </div>
-                </div>
-
-                <div class="relative reveal-up">
-                    <div class="grid grid-cols-2 gap-4">
-                        <div class="space-y-4 mt-8">
-                            <div class="aspect-[3/4] rounded-xl overflow-hidden border border-gold/20">
-                                <img src="https://images.unsplash.com/photo-1622279457486-62dcc4a431d6?w=400&q=80" alt="Tennis Training" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
-                            </div>
-                            <div class="luxury-card p-6 rounded-xl">
-                                <p class="text-3xl font-bold text-gold font-serif mb-1">500+</p>
-                                <p class="text-sm text-gray-400">Students Coached</p>
-                            </div>
-                        </div>
-                        <div class="space-y-4">
-                            <div class="luxury-card p-6 rounded-xl">
-                                <p class="text-3xl font-bold text-gold font-serif mb-1">15+</p>
-                                <p class="text-sm text-gray-400">Years Experience</p>
-                            </div>
-                            <div class="aspect-[3/4] rounded-xl overflow-hidden border border-gold/20">
-                                <img src="https://images.unsplash.com/photo-1595435934249-5df7ed86e1c0?w=400&q=80" alt="Tennis Court" class="w-full h-full object-cover hover:scale-110 transition-transform duration-500">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Mindset/Wealth Philosophy -->
-    <section id="mindset" class="py-32 px-6 relative court-pattern">
-        <div class="max-w-5xl mx-auto text-center reveal-up">
-            <i data-lucide="quote" class="w-12 h-12 text-gold/30 mx-auto mb-8"></i>
-            <h2 class="font-serif text-3xl md:text-5xl font-bold mb-8 leading-tight">
-                "I don't just teach tennis. I teach <span class="text-gold">winning</span>. And winning isn't just about the score—it's about building an empire that outlasts you."
-            </h2>
-            <p class="text-gold font-serif text-xl">— Raymond Musakanda</p>
-            
-            <div class="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-left">
-                <div class="luxury-card p-8 rounded-xl reveal-up">
-                    <div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center mb-4">
-                        <span class="text-gold font-bold text-xl">01</span>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Discipline</h3>
-                    <p class="text-gray-400 text-sm">Every day. Every serve. Every page written. Consistency builds empires.</p>
-                </div>
-                
-                <div class="luxury-card p-8 rounded-xl reveal-up" style="transition-delay: 0.1s;">
-                    <div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center mb-4">
-                        <span class="text-gold font-bold text-xl">02</span>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Vision</h3>
-                    <p class="text-gray-400 text-sm">See the billion-dollar future before it exists. Then build it.</p>
-                </div>
-                
-                <div class="luxury-card p-8 rounded-xl reveal-up" style="transition-delay: 0.2s;">
-                    <div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center mb-4">
-                        <span class="text-gold font-bold text-xl">03</span>
-                    </div>
-                    <h3 class="font-bold text-lg mb-2">Execution</h3>
-                    <p class="text-gray-400 text-sm">Ideas are cheap. Action is priceless. Move fast. Adjust faster.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials -->
-    <section class="py-24 px-6 bg-rich-black border-y border-gold/10">
-        <div class="max-w-7xl mx-auto">
-            <h2 class="font-serif text-3xl md:text-4xl font-bold text-center mb-16 reveal-up">Champions <span class="text-gold">Speak</span></h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div class="testimonial-card p-8 rounded-r-xl reveal-up">
-                    <div class="flex gap-1 mb-4">
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                    </div>
-                    <p class="text-lg mb-6 text-gray-300 italic">"Raymond didn't just improve my backhand—he changed my entire approach to competition. I'm now ranked top 10 in Zimbabwe."</p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center">
-                            <span class="text-gold font-bold">TK</span>
-                        </div>
-                        <div>
-                            <p class="font-bold">Takudzwa K.</p>
-                            <p class="text-sm text-gray-500">Junior Champion</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="testimonial-card p-8 rounded-r-xl reveal-up" style="transition-delay: 0.1s;">
-                    <div class="flex gap-1 mb-4">
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                        <i data-lucide="star" class="w-5 h-5 text-gold fill-gold"></i>
-                    </div>
-                    <p class="text-lg mb-6 text-gray-300 italic">"His book 'Court to Empire' gave me the roadmap to monetize my coaching business. Revenue up 300% in 6 months."</p>
-                    <div class="flex items-center gap-4">
-                        <div class="w-12 h-12 rounded-full bg-gold/20 flex items-center justify-center">
-                            <span class="text-gold font-bold">SM</span>
-                        </div>
-                        <div>
-                            <p class="font-bold">Sarah M.</p>
-                            <p class="text-sm text-gray-500">Tennis Coach, South Africa</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact/CTA Section -->
-    <section id="contact" class="py-32 px-6 relative overflow-hidden">
-        <div class="absolute inset-0 bg-gradient-to-b from-deep-green/10 to-rich-black"></div>
-        
-        <div class="max-w-4xl mx-auto text-center relative z-10 reveal-up">
-            <p class="text-gold font-medium mb-4 tracking-widest uppercase">Join the Empire</p>
-            <h2 class="font-serif text-4xl md:text-6xl font-bold mb-6">
-                Ready to Build Your <span class="text-gold">Legacy</span>?
-            </h2>
-            <p class="text-gray-400 text-lg mb-12 max-w-xl mx-auto">
-                Whether you want to master tennis, write your own success story, or discuss business opportunities—let's talk.
-            </p>
-
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-2xl mx-auto mb-12">
-                <a href="mailto:raymond@empire.com" class="group luxury-card p-8 rounded-xl hover:border-gold/50 transition-all text-left">
-                    <i data-lucide="mail" class="w-8 h-8 text-gold mb-4"></i>
-                    <h3 class="font-bold text-lg mb-2">Business Inquiries</h3>
-                    <p class="text-gray-400 text-sm mb-4">Partnerships, speaking engagements, publishing deals</p>
-                    <span class="text-gold flex items-center gap-2 text-sm">
-                        raymond@empire.com <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
-                    </span>
-                </a>
-
-                <a href="#" class="group luxury-card p-8 rounded-xl hover:border-gold/50 transition-all text-left">
-                    <i data-lucide="calendar" class="w-8 h-8 text-gold mb-4"></i>
-                    <h3 class="font-bold text-lg mb-2">Book a Session</h3>
-                    <p class="text-gray-400 text-sm mb-4">Private coaching in Harare or virtual consultations</p>
-                    <span class="text-gold flex items-center gap-2 text-sm">
-                        Schedule Now <i data-lucide="arrow-up-right" class="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform"></i>
-                    </span>
-                </a>
-            </div>
-
-            <div class="flex justify-center gap-6">
-                <a href="#" class="w-12 h-12 rounded-full border border-gold/30 flex items-center justify-center hover:bg-gold hover:text-black transition-all">
-                    <i data-lucide="instagram" class="w-5 h-5"></i>
-                </a>
-                <a href="#" class="w-12 h-12 rounded-full border border-gold/30 flex items-center justify-center hover:bg-gold hover:text-black transition-all">
-                    <i data-lucide="twitter" class="w-5 h-5"></i>
-                </a>
-                <a href="#" class="w-12 h-12 rounded-full border border-gold/30 flex items-center justify-center hover:bg-gold hover:text-black transition-all">
-                    <i data-lucide="linkedin" class="w-5 h-5"></i>
-                </a>
-                <a href="#" class="w-12 h-12 rounded-full border border-gold/30 flex items-center justify-center hover:bg-gold hover:text-black transition-all">
-                    <i data-lucide="youtube" class="w-5 h-5"></i>
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="py-12 px-6 border-t border-gold/10 bg-rich-black">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="flex items-center gap-2">
-                <span class="font-serif text-2xl font-bold text-gold">RM</span>
-                <span class="text-gray-600">|</span>
-                <span class="text-gray-500 text-sm">Building empires from Zimbabwe to the world</span>
-            </div>
-            <p class="text-gray-600 text-sm">© 2024 Raymond Musakanda. All rights reserved.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Initialize Lucide icons
-        lucide.createIcons();
-
-        // Scroll Reveal Animation
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.reveal-up').forEach(el => observer.observe(el));
-
-        // Mobile Menu Toggle
-        const menuBtn = document.getElementById('menuBtn');
-        const mobileMenu = document.getElementById('mobileMenu');
-        let menuOpen = false;
-
-        menuBtn.addEventListener('click', () => {
-            menuOpen = !menuOpen;
-            if (menuOpen) {
-                mobileMenu.classList.remove('opacity-0', 'pointer-events-none');
-                mobileMenu.classList.add('opacity-100', 'pointer-events-auto');
-            } else {
-                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
-            }
-        });
-
-        // Close mobile menu on link click
-        mobileMenu.querySelectorAll('a').forEach(link => {
-            link.addEventListener('click', () => {
-                menuOpen = false;
-                mobileMenu.classList.add('opacity-0', 'pointer-events-none');
-                mobileMenu.classList.remove('opacity-100', 'pointer-events-auto');
-            });
-        });
-
-        // Smooth scroll for navigation
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Wealth Counter Animation
-        const counters = document.querySelectorAll('.wealth-counter');
-        counters.forEach(counter => {
-            const target = counter.getAttribute('data-target');
-            if (target) {
-                let current = 0;
-                const increment = target / 100;
-                const updateCounter = () => {
-                    if (current < target) {
-                        current += increment;
-                        counter.innerText = Math.ceil(current);
-                        setTimeout(updateCounter, 20);
-                    } else {
-                        counter.innerText = target;
-                    }
-                };
-                updateCounter();
-            }
-        });
-    </script>
+    <footer><p>&copy; 2024 Raymond Musakanda. Building empires from Zimbabwe to the world.</p></footer>
 </body>
 </html>
